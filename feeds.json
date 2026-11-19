@@ -1,0 +1,132 @@
+{
+ "feeds": [
+  {
+   "sport": "basket",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/nba/news"
+  },
+  {
+   "sport": "nfl",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/nfl/news"
+  },
+  {
+   "sport": "beisbol",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/mlb/news"
+  },
+  {
+   "sport": "futbol",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/soccer/news"
+  },
+  {
+   "sport": "tenis",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/tennis/news"
+  },
+  {
+   "sport": "boxeo",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/boxing/news"
+  },
+  {
+   "sport": "ufc",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/mma/news"
+  },
+  {
+   "sport": "f1",
+   "src": "ESPN",
+   "url": "https://www.espn.com/espn/rss/f1/news"
+  },
+  {
+   "sport": "futbol",
+   "src": "BBC Sport",
+   "url": "https://feeds.bbci.co.uk/sport/football/rss.xml"
+  },
+  {
+   "sport": "tenis",
+   "src": "BBC Sport",
+   "url": "https://feeds.bbci.co.uk/sport/tennis/rss.xml"
+  },
+  {
+   "sport": "f1",
+   "src": "BBC Sport",
+   "url": "https://feeds.bbci.co.uk/sport/formula1/rss.xml"
+  },
+  {
+   "sport": "boxeo",
+   "src": "BBC Sport",
+   "url": "https://feeds.bbci.co.uk/sport/boxing/rss.xml"
+  },
+  {
+   "sport": "basket",
+   "src": "CBS Sports",
+   "url": "https://www.cbssports.com/rss/headlines/nba/"
+  },
+  {
+   "sport": "nfl",
+   "src": "CBS Sports",
+   "url": "https://www.cbssports.com/rss/headlines/nfl/"
+  },
+  {
+   "sport": "beisbol",
+   "src": "CBS Sports",
+   "url": "https://www.cbssports.com/rss/headlines/mlb/"
+  },
+  {
+   "sport": "futbol",
+   "src": "CBS Sports",
+   "url": "https://www.cbssports.com/rss/headlines/soccer/"
+  },
+  {
+   "sport": "ufc",
+   "src": "MMA Fighting",
+   "url": "https://www.mmafighting.com/rss/current"
+  },
+  {
+   "sport": "ufc",
+   "src": "MMA Junkie",
+   "url": "https://mmajunkie.usatoday.com/feed"
+  },
+  {
+   "sport": "f1",
+   "src": "Motorsport.com",
+   "url": "https://www.motorsport.com/rss/f1/news/"
+  },
+  {
+   "sport": "futbol",
+   "src": "Sky Sports",
+   "url": "https://www.skysports.com/rss/12040"
+  }
+ ],
+ "bluesky": [],
+ "hot_keywords": [
+  "breaking",
+  "última hora",
+  "ultima hora",
+  "traded",
+  "trade ",
+  "suspended",
+  "suspendido",
+  "fired",
+  "despedido",
+  "injur",
+  "lesión",
+  "lesion",
+  "signs",
+  "firma",
+  "retire",
+  "dies",
+  "muere",
+  "champion",
+  "campeón",
+  "record",
+  "récord",
+  "agrees",
+  "acuerdo",
+  "ruled out",
+  "out for"
+ ]
+}
