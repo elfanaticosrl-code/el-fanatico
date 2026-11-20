@@ -33,7 +33,7 @@ jobs:
           git diff --cached --quiet || (git commit -m "datos [skip ci]" && git push)
       - run: |
           mkdir -p _site
-          cp index.html manifest.webmanifest sw.js icon-192.png icon-512.png logo.png news.json _site/
+          cp index.html manifest.webmanifest sw.js icon-192.png icon-512.png news.json _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
