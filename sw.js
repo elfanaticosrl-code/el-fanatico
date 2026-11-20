@@ -1,4 +1,4 @@
-const C="elf-v1";
+const C="elf-v2";
 self.addEventListener("install",e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(["./","index.html","manifest.webmanifest","icon-192.png"])))});
 self.addEventListener("fetch",e=>{
   if(e.request.method!=="GET")return;

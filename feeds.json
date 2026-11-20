@@ -3,111 +3,566 @@
   {
    "sport": "basket",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/nba/news"
+   "url": "https://www.espn.com/espn/rss/nba/news",
+   "w": 3
   },
   {
    "sport": "nfl",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/nfl/news"
+   "url": "https://www.espn.com/espn/rss/nfl/news",
+   "w": 3
   },
   {
    "sport": "beisbol",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/mlb/news"
+   "url": "https://www.espn.com/espn/rss/mlb/news",
+   "w": 3
   },
   {
    "sport": "futbol",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/soccer/news"
+   "url": "https://www.espn.com/espn/rss/soccer/news",
+   "w": 3
   },
   {
    "sport": "tenis",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/tennis/news"
+   "url": "https://www.espn.com/espn/rss/tennis/news",
+   "w": 3
   },
   {
    "sport": "boxeo",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/boxing/news"
+   "url": "https://www.espn.com/espn/rss/boxing/news",
+   "w": 3
   },
   {
    "sport": "ufc",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/mma/news"
+   "url": "https://www.espn.com/espn/rss/mma/news",
+   "w": 3
   },
   {
    "sport": "f1",
    "src": "ESPN",
-   "url": "https://www.espn.com/espn/rss/f1/news"
+   "url": "https://www.espn.com/espn/rss/f1/news",
+   "w": 3
   },
   {
    "sport": "futbol",
    "src": "BBC Sport",
-   "url": "https://feeds.bbci.co.uk/sport/football/rss.xml"
+   "url": "https://feeds.bbci.co.uk/sport/football/rss.xml",
+   "w": 2
   },
   {
    "sport": "tenis",
    "src": "BBC Sport",
-   "url": "https://feeds.bbci.co.uk/sport/tennis/rss.xml"
+   "url": "https://feeds.bbci.co.uk/sport/tennis/rss.xml",
+   "w": 2
   },
   {
    "sport": "f1",
    "src": "BBC Sport",
-   "url": "https://feeds.bbci.co.uk/sport/formula1/rss.xml"
+   "url": "https://feeds.bbci.co.uk/sport/formula1/rss.xml",
+   "w": 2
   },
   {
    "sport": "boxeo",
    "src": "BBC Sport",
-   "url": "https://feeds.bbci.co.uk/sport/boxing/rss.xml"
+   "url": "https://feeds.bbci.co.uk/sport/boxing/rss.xml",
+   "w": 2
   },
   {
    "sport": "basket",
    "src": "CBS Sports",
-   "url": "https://www.cbssports.com/rss/headlines/nba/"
+   "url": "https://www.cbssports.com/rss/headlines/nba/",
+   "w": 2
   },
   {
    "sport": "nfl",
    "src": "CBS Sports",
-   "url": "https://www.cbssports.com/rss/headlines/nfl/"
+   "url": "https://www.cbssports.com/rss/headlines/nfl/",
+   "w": 2
   },
   {
    "sport": "beisbol",
    "src": "CBS Sports",
-   "url": "https://www.cbssports.com/rss/headlines/mlb/"
+   "url": "https://www.cbssports.com/rss/headlines/mlb/",
+   "w": 2
   },
   {
    "sport": "futbol",
    "src": "CBS Sports",
-   "url": "https://www.cbssports.com/rss/headlines/soccer/"
+   "url": "https://www.cbssports.com/rss/headlines/soccer/",
+   "w": 2
   },
   {
    "sport": "ufc",
    "src": "MMA Fighting",
-   "url": "https://www.mmafighting.com/rss/current"
+   "url": "https://www.mmafighting.com/rss/current",
+   "w": 2
   },
   {
    "sport": "ufc",
    "src": "MMA Junkie",
-   "url": "https://mmajunkie.usatoday.com/feed"
+   "url": "https://mmajunkie.usatoday.com/feed",
+   "w": 2
   },
   {
    "sport": "f1",
    "src": "Motorsport.com",
-   "url": "https://www.motorsport.com/rss/f1/news/"
+   "url": "https://www.motorsport.com/rss/f1/news/",
+   "w": 2
   },
   {
    "sport": "futbol",
    "src": "Sky Sports",
-   "url": "https://www.skysports.com/rss/12040"
+   "url": "https://www.skysports.com/rss/12040",
+   "w": 2
+  },
+  {
+   "sport": "basket",
+   "src": "NBA.com",
+   "url": "https://www.nba.com/rss/nba_rss.xml",
+   "w": 3
+  },
+  {
+   "sport": "beisbol",
+   "src": "MLB.com",
+   "url": "https://www.mlb.com/feeds/news/rss.xml",
+   "w": 3
+  },
+  {
+   "sport": "f1",
+   "src": "Formula1.com",
+   "url": "https://www.formula1.com/content/fom-website/en/latest/all.xml",
+   "w": 3
+  },
+  {
+   "sport": "f1",
+   "src": "FIA",
+   "q": "site:fia.com",
+   "w": 3,
+   "lang": "en"
+  },
+  {
+   "sport": "futbol",
+   "src": "FIFA",
+   "q": "site:fifa.com",
+   "w": 3,
+   "lang": "en"
+  },
+  {
+   "sport": "futbol",
+   "src": "UEFA",
+   "q": "site:uefa.com",
+   "w": 3,
+   "lang": "en"
+  },
+  {
+   "sport": "auto",
+   "src": "The Athletic",
+   "q": "site:nytimes.com/athletic",
+   "w": 3,
+   "lang": "en"
+  },
+  {
+   "sport": "f1",
+   "src": "Autosport",
+   "url": "https://www.autosport.com/rss/feed/f1",
+   "w": 2
+  },
+  {
+   "sport": "beisbol",
+   "src": "MLB Trade Rumors",
+   "url": "https://www.mlbtraderumors.com/feed",
+   "w": 3
+  },
+  {
+   "sport": "basket",
+   "src": "HoopsHype",
+   "url": "https://hoopshype.com/feed/",
+   "w": 3
+  },
+  {
+   "sport": "f1",
+   "src": "The Race",
+   "url": "https://www.the-race.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "TMZ Sports",
+   "q": "site:tmz.com sports",
+   "w": 1,
+   "lang": "en"
+  },
+  {
+   "sport": "auto",
+   "src": "L'Équipe",
+   "url": "https://dwh.lequipe.fr/api/edito/rss?path=/",
+   "w": 2
+  },
+  {
+   "sport": "futbol",
+   "src": "L'Équipe",
+   "url": "https://dwh.lequipe.fr/api/edito/rss?path=/Football/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "La Gazzetta dello Sport",
+   "url": "https://www.gazzetta.it/rss/home.xml",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Marca",
+   "url": "https://e00-marca.uecdn.es/rss/portada.xml",
+   "w": 2
+  },
+  {
+   "sport": "futbol",
+   "src": "Marca",
+   "url": "https://e00-marca.uecdn.es/rss/futbol/primera-division.xml",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Relevo",
+   "q": "site:relevo.com",
+   "w": 2,
+   "lang": "es"
+  },
+  {
+   "sport": "auto",
+   "src": "Front Office Sports",
+   "url": "https://frontofficesports.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Sportico",
+   "url": "https://www.sportico.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Bleacher Report",
+   "url": "https://bleacherreport.com/articles/feed",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Yahoo Sports",
+   "url": "https://sports.yahoo.com/rss/",
+   "w": 2
+  },
+  {
+   "sport": "nfl",
+   "src": "NBC Sports (PFT)",
+   "url": "https://profootballtalk.nbcsports.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Fox Sports",
+   "url": "https://api.foxsports.com/v1/rss?partnerKey=zBaFxRyGKCfxBagJG9b8pqLyndmvo7UU",
+   "w": 2
+  },
+  {
+   "sport": "basket",
+   "src": "Marc Stein (The Stein Line)",
+   "url": "https://marcstein.substack.com/feed",
+   "w": 3,
+   "rep": true
+  },
+  {
+   "sport": "basket",
+   "src": "Hoops Rumors",
+   "url": "https://www.hoopsrumors.com/feed",
+   "w": 3
+  },
+  {
+   "sport": "basket",
+   "src": "RealGM",
+   "url": "https://basketball.realgm.com/rss/wiretap/0/0.xml",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Rotoworld (NBC)",
+   "q": "site:nbcsports.com/fantasy",
+   "w": 2,
+   "lang": "en"
+  },
+  {
+   "sport": "beisbol",
+   "src": "FanGraphs",
+   "url": "https://blogs.fangraphs.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "beisbol",
+   "src": "Baseball America",
+   "url": "https://www.baseballamerica.com/feed/",
+   "w": 2
+  },
+  {
+   "sport": "f1",
+   "src": "Auto Motor und Sport",
+   "q": "site:auto-motor-und-sport.de formel 1",
+   "w": 2,
+   "lang": "de"
+  },
+  {
+   "sport": "f1",
+   "src": "PlanetF1",
+   "url": "https://www.planetf1.com/feed",
+   "w": 1
+  },
+  {
+   "sport": "f1",
+   "src": "GPFans",
+   "url": "https://www.gpfans.com/en/rss.xml",
+   "w": 1
+  },
+  {
+   "sport": "f1",
+   "src": "RacingNews365",
+   "url": "https://racingnews365.com/feed",
+   "w": 1
+  },
+  {
+   "sport": "auto",
+   "src": "TyC Sports",
+   "q": "site:tycsports.com",
+   "w": 2,
+   "lang": "es"
+  },
+  {
+   "sport": "auto",
+   "src": "Diario Olé",
+   "url": "https://www.ole.com.ar/rss/ultimas-noticias/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Globo Esporte",
+   "url": "https://ge.globo.com/rss/ge/",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Diario AS",
+   "url": "https://as.com/rss/tags/ultimas_noticias.xml",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Mundo Deportivo",
+   "url": "https://www.mundodeportivo.com/feed/rss/home",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Diario Sport",
+   "url": "https://www.sport.es/es/rss/last-news/news.xml",
+   "w": 2
+  },
+  {
+   "sport": "futbol",
+   "src": "Kicker",
+   "url": "https://rss.kicker.de/news/aktuell",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "Bild",
+   "q": "site:bild.de/sport",
+   "w": 2,
+   "lang": "de"
+  },
+  {
+   "sport": "auto",
+   "src": "The Guardian (Sport)",
+   "url": "https://www.theguardian.com/sport/rss",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "The Telegraph (Sport)",
+   "url": "https://www.telegraph.co.uk/sport/rss.xml",
+   "w": 2
+  },
+  {
+   "sport": "auto",
+   "src": "TalkSPORT",
+   "url": "https://talksport.com/feed/",
+   "w": 1
+  },
+  {
+   "sport": "futbol",
+   "src": "Goal.com",
+   "url": "https://www.goal.com/feeds/en/news",
+   "w": 2
   }
  ],
  "bluesky": [],
+ "notify_viral": true,
+ "classify": {
+  "basket": [
+   "nba",
+   "basket",
+   "baloncesto",
+   "lakers",
+   "celtics",
+   "warriors",
+   "knicks",
+   "lebron",
+   "curry",
+   "wembanyama",
+   "doncic",
+   "euroleague",
+   "pallacanestro",
+   "wnba"
+  ],
+  "nfl": [
+   "nfl",
+   "quarterback",
+   "touchdown",
+   "super bowl",
+   "chiefs",
+   "cowboys",
+   "eagles",
+   "mahomes",
+   "patriots",
+   "49ers",
+   "packers",
+   "bills",
+   "ravens"
+  ],
+  "beisbol": [
+   "mlb",
+   "béisbol",
+   "beisbol",
+   "baseball",
+   "yankees",
+   "dodgers",
+   "ohtani",
+   "mets",
+   "red sox",
+   "home run",
+   "pitcher",
+   "world series",
+   "grandes ligas",
+   "cubs",
+   "baseball"
+  ],
+  "futbol": [
+   "fútbol",
+   "futbol",
+   "soccer",
+   "premier league",
+   "la liga",
+   "laliga",
+   "champions league",
+   "uefa",
+   "fifa",
+   "real madrid",
+   "barcelona",
+   "barça",
+   "manchester",
+   "liverpool",
+   "arsenal",
+   "chelsea",
+   "mbappé",
+   "mbappe",
+   "messi",
+   "haaland",
+   "yamal",
+   "serie a",
+   "bundesliga",
+   "calcio",
+   "mundial",
+   "libertadores",
+   "bayern",
+   "juventus",
+   "psg",
+   "fußball",
+   "fussball",
+   "ligue 1",
+   "copa del rey"
+  ],
+  "tenis": [
+   "tennis",
+   "tenis",
+   "atp",
+   "wta",
+   "wimbledon",
+   "roland garros",
+   "us open",
+   "australian open",
+   "alcaraz",
+   "sinner",
+   "djokovic",
+   "nadal",
+   "grand slam",
+   "davis cup",
+   "copa davis"
+  ],
+  "f1": [
+   "formula 1",
+   "fórmula 1",
+   "formula1",
+   "formel 1",
+   "f1",
+   "verstappen",
+   "hamilton",
+   "ferrari",
+   "mclaren",
+   "grand prix",
+   "gran premio",
+   "fia",
+   "norris",
+   "leclerc",
+   "gp"
+  ],
+  "boxeo": [
+   "boxeo",
+   "boxing",
+   "boxe",
+   "canelo",
+   "fury",
+   "usyk",
+   "wbc",
+   "wba",
+   "ibf",
+   "wbo",
+   "crawford",
+   "inoue",
+   "pelea de box"
+  ],
+  "ufc": [
+   "ufc",
+   "mma",
+   "octagon",
+   "octágono",
+   "jon jones",
+   "mcgregor",
+   "dana white",
+   "bellator",
+   "pfl",
+   "topuria",
+   "makhachev"
+  ]
+ },
  "hot_keywords": [
   "breaking",
   "última hora",
   "ultima hora",
   "traded",
-  "trade ",
+  "trade",
   "suspended",
   "suspendido",
   "fired",
@@ -127,6 +582,89 @@
   "agrees",
   "acuerdo",
   "ruled out",
-  "out for"
+  "out for",
+  "officially",
+  "oficial"
+ ],
+ "stars": [
+  "messi",
+  "cristiano",
+  "ronaldo",
+  "lebron",
+  "curry",
+  "durant",
+  "doncic",
+  "dončić",
+  "wembanyama",
+  "mahomes",
+  "kelce",
+  "ohtani",
+  "verstappen",
+  "hamilton",
+  "leclerc",
+  "norris",
+  "alcaraz",
+  "sinner",
+  "djokovic",
+  "nadal",
+  "canelo",
+  "fury",
+  "usyk",
+  "crawford",
+  "jon jones",
+  "mcgregor",
+  "topuria",
+  "makhachev",
+  "mbappé",
+  "mbappe",
+  "haaland",
+  "yamal",
+  "bellingham",
+  "vinicius",
+  "vinícius",
+  "neymar",
+  "caitlin clark",
+  "tom brady",
+  "taylor swift"
+ ],
+ "viral_terms": [
+  "viral",
+  "video",
+  "shocking",
+  "stunning",
+  "insane",
+  "controversy",
+  "controversial",
+  "brawl",
+  "fight",
+  "meltdown",
+  "slams",
+  "blasts",
+  "explodes",
+  "arrested",
+  "scandal",
+  "historic",
+  "buzzer",
+  "walk-off",
+  "knockout",
+  "stunned",
+  "upset",
+  "rant",
+  "feud",
+  "polémica",
+  "escándalo",
+  "pelea",
+  "histórico",
+  "increíble",
+  "bronca",
+  "sorpresa",
+  "golpe",
+  "bombazo",
+  "revela",
+  "sorprende",
+  "skandal",
+  "polemica",
+  "scandale",
+  "choc"
  ]
 }
