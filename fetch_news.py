@@ -1,4 +1,4 @@
-import json, re, os, sys, hashlib, urllib.request, urllib.parse, xml.etree.ElementTree as ET
+import json, re, os, sys, time, hashlib, urllib.error, urllib.request, urllib.parse, xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
@@ -8,10 +8,10 @@ CFG = json.load(open("feeds.json", encoding="utf-8"))
 STOP = set("with from that this have will after about their over into says said para como pero esta este sobre desde entre cuando tras sus los las del una uno more than when what your".split())
 LANG = {"en": ("en-US", "US:en"), "es": ("es-419", "MX:es-419"), "fr": ("fr", "FR:fr"), "de": ("de", "DE:de"), "pt": ("pt-BR", "BR:pt-419")}
 
-def get(url, data=None, headers=None):
-    h = {"User-Agent": "Mozilla/5.0 ElFanatico/2.0", **(headers or {})}
+def get(url, data=None, headers=None, limit=None):
+    h = {"User-Agent": "Mozilla/5.0 ElFanatico/3.0", **(headers or {})}
     with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=h), timeout=15) as r:
-        return r.read()
+        return r.read(limit) if limit else r.read()
 
 def tag(e): return e.tag.split("}")[-1]
 
@@ -89,6 +89,41 @@ def push(i):
     try: get("https://ntfy.sh", data=json.dumps(msg).encode(), headers={"Content-Type": "application/json"})
     except Exception as e: print("ntfy:", e, file=sys.stderr)
 
+def img_type(b):
+    if b[:3] == b"\xff\xd8\xff": return "jpg"
+    if b[:8] == b"\x89PNG\r\n\x1a\n": return "png"
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP": return "webp"
+
+def og_image(url):
+    if "news.google.com" in url: return None
+    import html as H
+    page = get(url, headers={"Accept": "text/html"}, limit=400000).decode("utf-8", "ignore")
+    for pat in (r'<meta[^>]+property=["\']og:image(?::secure_url)?["\'][^>]+content=["\']([^"\']+)', r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image', r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)'):
+        m = re.search(pat, page, re.I)
+        if m: return urllib.parse.urljoin(url, H.unescape(m.group(1)))
+
+def fetch_img(i):
+    cands = []
+    try:
+        o = og_image(i["u"])
+        if o: cands.append(o)
+    except Exception: pass
+    if i.get("img"): cands.append(i["img"])
+    best = None
+    for u in cands:
+        try:
+            b = get(u, headers={"Accept": "image/*"}, limit=8_000_000); t = img_type(b)
+            if t and len(b) > 8000 and (not best or len(b) > len(best[0])): best = (b, t)
+        except Exception: pass
+    if best:
+        p = f"img/{i['id']}.{best[1]}"; open("_site/" + p, "wb").write(best[0]); i["local"] = p
+
+def enrich(out):
+    os.makedirs("_site/img", exist_ok=True)
+    pick = sorted(out, key=lambda i: -i["score"])
+    pick = ([i for i in pick if i["hot"] or i["viral"]] + [i for i in pick if not (i["hot"] or i["viral"])])[:40]
+    with ThreadPoolExecutor(8) as ex: list(ex.map(fetch_img, pick))
+
 def main():
     items, fail = [], []
     with ThreadPoolExecutor(16) as ex:
@@ -128,6 +163,7 @@ def main():
         cnt[i["s"]] = cnt.get(i["s"], 0) + 1
         if cnt[i["s"]] <= 40 or i["hot"] or i["viral"]:
             out.append({k: v for k, v in i.items() if k != "w"} | {"ts": i["ts"].isoformat()})
+    enrich(out)
     json.dump({"updated": NOW.isoformat(), "total": total, "ok": total - len(fail), "fail": fail, "items": out}, open("news.json", "w", encoding="utf-8"), ensure_ascii=False)
     seen = json.load(open("seen.json")) if os.path.exists("seen.json") else None
     alerts = sorted([i for i in out if i["hot"] or i["viral"]], key=lambda i: -i["score"])
