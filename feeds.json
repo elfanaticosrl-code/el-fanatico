@@ -666,5 +666,92 @@
   "polemica",
   "scandale",
   "choc"
+ ],
+ "scores": [
+  {
+   "sport": "basket",
+   "path": "basketball/nba",
+   "name": "NBA"
+  },
+  {
+   "sport": "nfl",
+   "path": "football/nfl",
+   "name": "NFL"
+  },
+  {
+   "sport": "beisbol",
+   "path": "baseball/mlb",
+   "name": "MLB"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/eng.1",
+   "name": "Premier League"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/esp.1",
+   "name": "LaLiga"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/ita.1",
+   "name": "Serie A"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/ger.1",
+   "name": "Bundesliga"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/fra.1",
+   "name": "Ligue 1"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/uefa.champions",
+   "name": "Champions League"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/uefa.europa",
+   "name": "Europa League"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/mex.1",
+   "name": "Liga MX"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/usa.1",
+   "name": "MLS"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/arg.1",
+   "name": "Liga Argentina"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/bra.1",
+   "name": "Brasileirão"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/conmebol.libertadores",
+   "name": "Libertadores"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/fifa.friendly",
+   "name": "Amistosos"
+  },
+  {
+   "sport": "futbol",
+   "path": "soccer/uefa.nations",
+   "name": "UEFA Nations League"
+  }
  ]
 }

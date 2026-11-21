@@ -124,6 +124,47 @@ def enrich(out):
     pick = ([i for i in pick if i["hot"] or i["viral"]] + [i for i in pick if not (i["hot"] or i["viral"])])[:40]
     with ThreadPoolExecutor(8) as ex: list(ex.map(fetch_img, pick))
 
+def slim_event(e):
+    try:
+        c = e["competitions"][0]; st = e["status"]["type"]; t = {}
+        for x in c["competitors"]:
+            tm = x.get("team", {}); sc = x.get("score", "")
+            if isinstance(sc, dict): sc = sc.get("displayValue", "")
+            t[x["homeAway"]] = {"n": tm.get("shortDisplayName") or tm.get("displayName", ""), "a": tm.get("abbreviation", ""),
+                                "s": str(sc) if st.get("state") != "pre" else "", "logo": tm.get("logo"), "w": bool(x.get("winner"))}
+        return {"id": str(e["id"]), "t": e["date"], "st": st.get("state", "pre"), "txt": st.get("shortDetail") or st.get("description", ""), "h": t["home"], "a": t["away"]}
+    except Exception: return None
+
+def scoreboard(l):
+    d0 = (NOW - timedelta(days=2)).strftime("%Y%m%d"); d1 = (NOW + timedelta(days=2)).strftime("%Y%m%d")
+    j = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/{l['path']}/scoreboard?dates={d0}-{d1}&limit=300"))
+    return {"sport": l["sport"], "key": l["path"], "name": l["name"], "games": [g for g in map(slim_event, j.get("events", [])) if g]}
+
+def write_scores():
+    leagues, fail = [], []
+    def one(l):
+        try: return scoreboard(l), None
+        except Exception as e: return None, f"{l['name']} ({str(e)[:40]})"
+    with ThreadPoolExecutor(8) as ex:
+        for r, err in ex.map(one, CFG.get("scores", [])):
+            if err: fail.append(err)
+            elif r["games"]: leagues.append(r)
+    urls = {g[k]["logo"] for l in leagues for g in l["games"] for k in ("a", "h") if g[k].get("logo")}
+    os.makedirs("_site/logos", exist_ok=True)
+    def dl(u):
+        try:
+            b = get(u, headers={"Accept": "image/*"}, limit=400000); t = img_type(b)
+            if t:
+                p = f"logos/{hashlib.md5(u.encode()).hexdigest()[:10]}.{t}"; open("_site/" + p, "wb").write(b); return u, p
+        except Exception: pass
+        return u, None
+    with ThreadPoolExecutor(8) as ex: m = dict(ex.map(dl, urls))
+    for l in leagues:
+        for g in l["games"]:
+            for k in ("a", "h"): g[k]["logo"] = m.get(g[k].get("logo"))
+    json.dump({"updated": NOW.isoformat(), "fail": fail, "leagues": leagues}, open("scores.json", "w", encoding="utf-8"), ensure_ascii=False)
+    print(sum(len(l["games"]) for l in leagues), "partidos;", len(fail), "ligas con falla")
+
 def main():
     items, fail = [], []
     with ThreadPoolExecutor(16) as ex:
@@ -164,6 +205,8 @@ def main():
         if cnt[i["s"]] <= 40 or i["hot"] or i["viral"]:
             out.append({k: v for k, v in i.items() if k != "w"} | {"ts": i["ts"].isoformat()})
     enrich(out)
+    try: write_scores()
+    except Exception as e: print("marcadores:", e, file=sys.stderr)
     json.dump({"updated": NOW.isoformat(), "total": total, "ok": total - len(fail), "fail": fail, "items": out}, open("news.json", "w", encoding="utf-8"), ensure_ascii=False)
     seen = json.load(open("seen.json")) if os.path.exists("seen.json") else None
     alerts = sorted([i for i in out if i["hot"] or i["viral"]], key=lambda i: -i["score"])
