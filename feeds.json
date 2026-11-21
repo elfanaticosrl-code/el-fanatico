@@ -684,6 +684,11 @@
    "name": "MLB"
   },
   {
+   "sport": "beisbol",
+   "path": "lidom",
+   "name": "LIDOM"
+  },
+  {
    "sport": "futbol",
    "path": "soccer/eng.1",
    "name": "Premier League"
