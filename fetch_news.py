@@ -136,9 +136,15 @@ def slim_event(e):
     except Exception: return None
 
 def scoreboard(l):
-    d0 = (NOW - timedelta(days=2)).strftime("%Y%m%d"); d1 = (NOW + timedelta(days=2)).strftime("%Y%m%d")
-    j = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/{l['path']}/scoreboard?dates={d0}-{d1}&limit=300"))
-    return {"sport": l["sport"], "key": l["path"], "name": l["name"], "games": [g for g in map(slim_event, j.get("events", [])) if g]}
+    evs, seen_e = [], set()
+    for offset in (-1, 0, 1):
+        d = (NOW + timedelta(days=offset)).strftime("%Y%m%d")
+        j = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/{l['path']}/scoreboard?dates={d}"))
+        for e in j.get("events", []):
+            if e.get("id") not in seen_e:
+                seen_e.add(e.get("id"))
+                evs.append(e)
+    return {"sport": l["sport"], "key": l["path"], "name": l["name"], "games": [g for g in map(slim_event, evs) if g]}
 
 def write_scores():
     leagues, fail = [], []
