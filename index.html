@@ -83,6 +83,7 @@ boxeo:[["¿Quién es el mejor libra por libra hoy?","Who is the best pound-for-p
 ufc:[["¿Quién es el mejor peleador libra por libra de la UFC?","Who is the best pound-for-pound fighter in the UFC?"],["¿Los jueces de MMA necesitan una reforma?","Does MMA judging need reform?"],["¿Qué pelea te gustaría ver a continuación?","Which fight do you want to see next?"]]};
 let NEWS=[],META={},SC={},cur="mejor",Q="",CUR=null,FMT="story",DAY=0,SPF="all",DLGH=null,DLGC=null,LOGO=null,TOK=0,CARV=[];
 let CAR={t:"top",sp:"basket",day:-1,lg:0,spc:"all",sel:new Set()};
+const TR_CACHE=new Map();
 const $=id=>document.getElementById(id);
 const isSport=id=>SPORTS.some(x=>x[0]===id);
 const name=id=>(SPORTS.find(x=>x[0]===id)||["",""])[1];
@@ -95,6 +96,17 @@ const dato=t=>DW.test(t)||DN.test(t);
 const dayKey=d=>d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
 const hora=t=>new Date(t).toLocaleTimeString("es",{hour:"numeric",minute:"2-digit"});
 const dayName=v=>v<0?"Ayer":v>0?"Mañana":"Hoy";
+async function toEs(txt){
+  if(!txt)return "";
+  if(TR_CACHE.has(txt))return TR_CACHE.get(txt);
+  try{
+    const u="https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=es&dt=t&q="+encodeURIComponent(txt);
+    const r=await fetch(u);if(!r.ok)throw 0;
+    const j=await r.json();
+    const out=(j[0]||[]).map(x=>x[0]||"").join("").trim()||txt;
+    TR_CACHE.set(txt,out);return out;
+  }catch(e){return txt}
+}
 function ago(t){const m=Math.max(1,Math.round((Date.now()-new Date(t))/6e4));return m<60?`hace ${m} min`:m<1440?`hace ${Math.round(m/60)} h`:`hace ${Math.round(m/1440)} d`}
 function ph(s){const d=document.createElement("div");d.className="th ph";d.textContent=ICON[s]||"📰";return d}
 function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;($("dlg").open?$("dlg"):document.body).appendChild(e);setTimeout(()=>e.remove(),2600)}
@@ -268,13 +280,16 @@ function carOpts(){
 async function carBuild(){
   const d=$("dlg"),st=d.querySelector("#cstrip"),tok=++TOK,jobs=[],es=new Date().toLocaleDateString("es",{day:"numeric",month:"short"}),en=new Date().toLocaleDateString("en",{day:"numeric",month:"short"});let cap;
   if(CAR.t!=="score"){
-    const items=carItems().filter(n=>CAR.sel.has(n.id)).slice(0,8);
-    if(!items.length){st.innerHTML='<p class="foot">Marca al menos una noticia.</p>';CARV=[];return}
-    const title=CAR.t==="top"?"LO MEJOR DEL DÍA":ICON[CAR.sp]+" "+name(CAR.sp).toUpperCase(),srcs=[...new Set(items.map(n=>n.src))].join(", "),list=items.map((n,i)=>`${i+1}. ${n.t}`).join("\n");
+    const rawItems=carItems().filter(n=>CAR.sel.has(n.id)).slice(0,8);
+    if(!rawItems.length){st.innerHTML='<p class="foot">Marca al menos una noticia.</p>';CARV=[];return}
+    st.textContent="Traduciendo titulares al español…";
+    const items=await Promise.all(rawItems.map(async n=>({...n,tEs:await toEs(n.t)})));
+    if(tok!==TOK)return;
+    const title=CAR.t==="top"?"LO MEJOR DEL DÍA":ICON[CAR.sp]+" "+name(CAR.sp).toUpperCase(),srcs=[...new Set(items.map(n=>n.src))].join(", "),listEs=items.map((n,i)=>`${i+1}. ${n.tEs}`).join("\n"),listEn=items.map((n,i)=>`${i+1}. ${n.t}`).join("\n");
     jobs.push(cv=>drawCover(cv,FMT,title,es.toUpperCase(),items[0],items.length+" noticias"));
-    items.forEach((n,i)=>jobs.push(cv=>render(cv,n,FMT,n.t,{num:i+1,total:items.length})));
+    items.forEach((n,i)=>jobs.push(cv=>render(cv,n,FMT,n.tEs,{num:i+1,total:items.length})));
     jobs.push(cv=>drawOutro(cv,FMT,"¿Cuál fue la noticia del día?",srcs));
-    cap={es:`⭐ ${title} · ${es}\n\n${list}\n\nFuentes: ${srcs}\n\n#ElFanatico`,en:`⭐ TOP SPORTS STORIES · ${en}\n\n${list}\n\nSources: ${srcs}\n\n#ElFanatico`,q_es:"¿Cuál fue la noticia del día?",q_en:"Which story was the biggest of the day?"};
+    cap={es:`⭐ ${title} · ${es}\n\n${listEs}\n\nFuentes: ${srcs}\n\n#ElFanatico`,en:`⭐ TOP SPORTS STORIES · ${en}\n\n${listEn}\n\nSources: ${srcs}\n\n#ElFanatico`,q_es:"¿Cuál fue la noticia del día?",q_en:"Which story was the biggest of the day?"};
   }else{
     const o=lgsOn(CAR.day).filter(x=>CAR.spc==="all"||x.l.sport===CAR.spc)[CAR.lg];
     if(!o){st.innerHTML='<p class="foot">No hay partidos para esa selección.</p>';CARV=[];return}
