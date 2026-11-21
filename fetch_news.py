@@ -180,10 +180,14 @@ def scoreboard(l):
 
 def write_scores():
     leagues, fail = [], []
+        from time import sleep
     def one(l):
-        try: return scoreboard(l), None
-        except Exception as e: return None, f"{l['name']} ({str(e)[:40]})"
-    with ThreadPoolExecutor(8) as ex:
+        for attempt in range(2):
+            try: return scoreboard(l), None
+            except Exception as e:
+                if attempt == 0: sleep(1.5)
+                else: return None, f"{l['name']} ({str(e)[:40]})"
+    with ThreadPoolExecutor(4) as ex:
         for r, err in ex.map(one, CFG.get("scores", [])):
             if err: fail.append(err)
             elif r["games"]: leagues.append(r)
@@ -202,6 +206,7 @@ def write_scores():
             for k in ("a", "h"): g[k]["logo"] = m.get(g[k].get("logo"))
     json.dump({"updated": NOW.isoformat(), "fail": fail, "leagues": leagues}, open("scores.json", "w", encoding="utf-8"), ensure_ascii=False)
     print(sum(len(l["games"]) for l in leagues), "partidos;", len(fail), "ligas con falla")
+
 
 def main():
     items, fail = [], []
