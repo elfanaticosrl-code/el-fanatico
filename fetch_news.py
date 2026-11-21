@@ -135,11 +135,43 @@ def slim_event(e):
         return {"id": str(e["id"]), "t": e["date"], "st": st.get("state", "pre"), "txt": st.get("shortDetail") or st.get("description", ""), "h": t["home"], "a": t["away"]}
     except Exception: return None
 
+def lidom_games():
+    d0 = (NOW - timedelta(days=1)).strftime("%Y-%m-%d")
+    d1 = (NOW + timedelta(days=1)).strftime("%Y-%m-%d")
+    u = f"https://mlb.com{d0}&endDate={d1}&hydrate=linescore,team"
+    j = json.loads(get(u))
+    games = []
+    for day in j.get("dates", []):
+        for g in day.get("games", []):
+            st_raw = g.get("status", {}).get("abstractGameState", "Preview")
+            st = {"Preview": "pre", "Live": "in", "Final": "post"}.get(st_raw, "pre")
+            ls = g.get("linescore", {})
+            if st == "in" and ls.get("currentInningOrdinal"):
+                half = "Alta" if ls.get("inningHalf") == "Top" else "Baja"
+                txt = f"{half} {ls['currentInningOrdinal']}"
+            else:
+                txt = "Final" if st == "post" else g.get("status", {}).get("detailedState", "")
+            t = {}
+            for side in ("home", "away"):
+                tm = g["teams"][side]
+                info = tm.get("team", {})
+                t[side] = {
+                    "n": info.get("teamName") or info.get("name", ""),
+                    "a": info.get("abbreviation", ""),
+                    "s": str(tm["score"]) if st != "pre" and "score" in tm else "",
+                    "logo": None,
+                    "w": bool(tm.get("isWinner"))
+                }
+            games.append({"id": str(g["gamePk"]), "t": g["gameDate"], "st": st, "txt": txt, "h": t["home"], "a": t["away"]})
+    return {"sport": "beisbol", "key": "lidom", "name": "LIDOM", "games": games}
+
 def scoreboard(l):
+    if l.get("path") == "lidom":
+        return lidom_games()
     evs, seen_e = [], set()
     for offset in (-1, 0, 1):
         d = (NOW + timedelta(days=offset)).strftime("%Y%m%d")
-        j = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/{l['path']}/scoreboard?dates={d}"))
+        j = json.loads(get(f"https://espn.com{l['path']}/scoreboard?dates={d}"))
         for e in j.get("events", []):
             if e.get("id") not in seen_e:
                 seen_e.add(e.get("id"))
