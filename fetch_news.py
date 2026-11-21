@@ -7,6 +7,7 @@ NOW = datetime.now(timezone.utc)
 CFG = json.load(open("feeds.json", encoding="utf-8"))
 STOP = set("with from that this have will after about their over into says said para como pero esta este sobre desde entre cuando tras sus los las del una uno more than when what your".split())
 LANG = {"en": ("en-US", "US:en"), "es": ("es-419", "MX:es-419"), "fr": ("fr", "FR:fr"), "de": ("de", "DE:de"), "pt": ("pt-BR", "BR:pt-419")}
+LIDOM_IDS = {667, 668, 669, 670, 671, 672}
 
 def get(url, data=None, headers=None, limit=None):
     h = {"User-Agent": "Mozilla/5.0 ElFanatico/3.0", **(headers or {})}
@@ -100,6 +101,7 @@ def img_type(b):
     if b[:3] == b"\xff\xd8\xff": return "jpg"
     if b[:8] == b"\x89PNG\r\n\x1a\n": return "png"
     if b[:4] == b"RIFF" and b[8:12] == b"WEBP": return "webp"
+    if b.lstrip()[:5].lower() in (b"<svg ", b"<?xml") and b"<svg" in b[:300].lower(): return "svg"
 
 def og_image(url):
     if "news.google.com" in url: return None
@@ -162,11 +164,12 @@ def lidom_games():
             for side in ("home", "away"):
                 tm = g["teams"][side]
                 info = tm.get("team", {})
+                tid = info.get("id")
                 t[side] = {
                     "n": info.get("teamName") or info.get("name", ""),
                     "a": info.get("abbreviation", ""),
                     "s": str(tm["score"]) if st != "pre" and "score" in tm else "",
-                    "logo": None,
+                    "logo": f"https://midfield.mlbstatic.com/v1/team/{tid}/spots/72" if tid in LIDOM_IDS else None,
                     "w": bool(tm.get("isWinner"))
                 }
             games.append({"id": str(g["gamePk"]), "t": g["gameDate"], "st": st, "txt": txt, "h": t["home"], "a": t["away"]})
