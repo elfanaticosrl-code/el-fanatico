@@ -10,9 +10,16 @@ LANG = {"en": ("en-US", "US:en"), "es": ("es-419", "MX:es-419"), "fr": ("fr", "F
 
 def get(url, data=None, headers=None, limit=None):
     h = {"User-Agent": "Mozilla/5.0 ElFanatico/3.0", **(headers or {})}
-    with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=h), timeout=15) as r:
-        return r.read(limit) if limit else r.read()
-
+    for i in range(3):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=h), timeout=15) as r:
+                return r.read(limit) if limit else r.read()
+        except urllib.error.HTTPError:
+            raise
+        except Exception:
+            if i == 2: raise
+            time.sleep(1 + i)
+            
 def tag(e): return e.tag.split("}")[-1]
 
 def when(s):
