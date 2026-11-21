@@ -19,7 +19,7 @@ def get(url, data=None, headers=None, limit=None):
         except Exception:
             if i == 2: raise
             time.sleep(1 + i)
-            
+
 def tag(e): return e.tag.split("}")[-1]
 
 def when(s):
@@ -145,7 +145,7 @@ def slim_event(e):
 def lidom_games():
     d0 = (NOW - timedelta(days=1)).strftime("%Y-%m-%d")
     d1 = (NOW + timedelta(days=1)).strftime("%Y-%m-%d")
-    u = f"https://mlb.com{d0}&endDate={d1}&hydrate=linescore,team"
+    u = f"https://statsapi.mlb.com/api/v1/schedule?sportId=17&leagueId=131&startDate={d0}&endDate={d1}&hydrate=linescore,team"
     j = json.loads(get(u))
     games = []
     for day in j.get("dates", []):
@@ -178,7 +178,8 @@ def scoreboard(l):
     evs, seen_e = [], set()
     for offset in (-1, 0, 1):
         d = (NOW + timedelta(days=offset)).strftime("%Y%m%d")
-        j = json.loads(get(f"https://espn.com{l['path']}/scoreboard?dates={d}"))
+        path = l["path"].lstrip("/")
+        j = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard?dates={d}"))
         for e in j.get("events", []):
             if e.get("id") not in seen_e:
                 seen_e.add(e.get("id"))
